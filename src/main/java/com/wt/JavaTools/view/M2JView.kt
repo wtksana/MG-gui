@@ -3,7 +3,7 @@ package com.wt.JavaTools.view
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
-import javafx.scene.layout.VBox
+import javafx.scene.layout.AnchorPane
 import tornadofx.View
 import java.sql.Connection
 import java.sql.DriverManager
@@ -12,7 +12,7 @@ import java.sql.Statement
 
 
 class M2JView : View("M2J") {
-    override val root: VBox by fxml("/fxml/M2JView.fxml")
+    override val root: AnchorPane by fxml("/fxml/M2JView.fxml")
     val ip: TextField by fxid("ip")
     val dataBase: TextField by fxid("dataBase")
     val rootUser: TextField by fxid("rootUser")
@@ -25,7 +25,7 @@ class M2JView : View("M2J") {
         done.setOnMouseReleased { m2j() }
     }
 
-    fun m2j() {
+    private fun m2j() {
         if (ip.text.isBlank() || dataBase.text.isBlank() || rootUser.text.isBlank() || password.text.isBlank() || tableName.text.isBlank()) {
             output.text = "请输入数据库信息！"
         } else {
