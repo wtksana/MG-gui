@@ -77,9 +77,9 @@
             </children>
         </GridPane>
         <Button fx:id="done" mnemonicParsing="false" text="Done" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="420.0" />
-      <FlowPane AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="285.0">
+      <FlowPane fx:id="dependencies" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="285.0">
          <children>
-            <CheckBox fx:id="Spring" mnemonicParsing="false" text="Spring"/>
+            <CheckBox mnemonicParsing="false" text="Spring"/>
          </children>
       </FlowPane>
     </children>
