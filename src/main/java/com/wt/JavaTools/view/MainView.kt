@@ -1,26 +1,22 @@
 package com.wt.JavaTools.view
 
-import javafx.scene.control.TabPane
-import tornadofx.View
-import tornadofx.plusAssign
-import tornadofx.tab
-import tornadofx.tabpane
+import tornadofx.*
 
 /**
  * Created by wt on 2017/1/23.
  */
-class MainView : View("JavaTools") {
+class MainView : View("EntityGenerator") {
 
     val m2jView: M2JView by inject()
-    val projectCreatorView: ProjectCreatorView by inject()
 
-    override val root = tabpane {
-        tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
-        tab("M2J") {
-            this += m2jView.root
-        }
-        tab("ProjectCreator") {
-            this += projectCreatorView.root
+    override val root = borderpane {
+        minHeight = 450.0
+        minWidth = 300.0
+    }
+
+    init {
+        with(root) {
+            center = m2jView.root
         }
     }
 

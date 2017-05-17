@@ -31,7 +31,7 @@
                 <TextField fx:id="ip" text="127.0.0.1:3306" GridPane.columnIndex="1"/>
                 <TextField fx:id="dataBase" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <TextField fx:id="rootUser" text="root" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <TextField fx:id="password" text="root" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                 <TextField fx:id="tableName" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             </children>
         </GridPane>

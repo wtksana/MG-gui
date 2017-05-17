@@ -36,34 +36,36 @@ class M2JView : View("M2J") {
                 val sql = "SELECT COLUMN_NAME, COLUMN_COMMENT, DATA_TYPE FROM information_schema.COLUMNS WHERE TABLE_NAME = '${tableName.text}' AND TABLE_SCHEMA = '${dataBase.text}'"
                 println(sql)
                 val rs: ResultSet = stmt.executeQuery(sql)
-                val sb = StringBuffer("")
-                while (rs.next()) {
-                    val columnName = rs.getString("COLUMN_NAME")
-                    val dataType = rs.getString("DATA_TYPE")
-                    val comments = rs.getString("COLUMN_COMMENT")
-                    val name = getName(columnName, dataType, comments)
-                    sb.append(name)
-                }
-                output.text = sb.toString()
+                output.text = createEntity(rs)
             } catch (e: Exception) {
                 output.text = e.message
             }
         }
     }
 
-    private fun getName(columnName: String, dataType: String, comments: String): String {
-        val sb = StringBuilder()
-
-        val fieldNames = columnName.toLowerCase().split("_".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        val type: String
-        //将字段首字母大写
-        for (fieldName in fieldNames) {
-            val firstWord = fieldName.substring(0, 1).toUpperCase()
-            sb.append(firstWord)
-            sb.append(fieldName.substring(1, fieldName.length))
+    private fun createEntity(rs: ResultSet): String {
+        val sb = StringBuffer("")
+        sb.append("import javax.persistence.*;\n")
+        sb.append("import java.io.Serializable;\n\n")
+        sb.append("@Entity\n")
+        sb.append("@Table(name = \"${tableName.text}\")\n")
+        val EntityName = getFieldName(tableName.text)
+        sb.append("public class $EntityName implements Serializable {\n")
+        sb.append("private static final long serialVersionUID = 1L;\n")
+        while (rs.next()) {
+            val columnName = rs.getString("COLUMN_NAME")
+            val dataType = rs.getString("DATA_TYPE")
+            val comments = rs.getString("COLUMN_COMMENT")
+            val name = getName(columnName, dataType, comments)
+            sb.append(name)
         }
-        val head = sb.toString().substring(0, 1).toLowerCase()
-        val tail = sb.substring(1, sb.length)
+        sb.append("}")
+        return sb.toString()
+    }
+
+    private fun getName(columnName: String, dataType: String, comments: String): String {
+        val fieldName = getFieldName(columnName)
+        val type: String
         if (dataType == "decimal") {
             type = "double"
         } else if (dataType == "int" || dataType == "tinyint") {
@@ -76,9 +78,28 @@ class M2JView : View("M2J") {
             type = "String"
         }
         //        String comment = "/**" + "\n" + " *" + comments + "\n */" + "\n";
-        val comment = "/* $comments */\n"
-        val property = "private $type $head$tail;\n"
+        var comment = "/* $comments */\n"
+        if (fieldName == "id") {
+            comment += "@Id\n@GeneratedValue(strategy = GenerationType.AUTO)\n"
+        }
+        val property = "private $type $fieldName;\n"
         val name = comment + property
         return name
+    }
+
+    private fun getFieldName(columnName: String): String {
+        //将字段首字母大写
+        val sb = StringBuilder()
+        val fieldNames = columnName.toLowerCase().split("_".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        //将字段首字母大写
+        for (fieldName in fieldNames) {
+            fieldName.toUpperCase()
+            val firstWord = fieldName.substring(0, 1).toUpperCase()
+            sb.append(firstWord)
+            sb.append(fieldName.substring(1, fieldName.length))
+        }
+        val head = sb.toString().substring(0, 1).toLowerCase()
+        val tail = sb.substring(1, sb.length)
+        return head + tail
     }
 }

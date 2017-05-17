@@ -4,8 +4,8 @@ version '0.1'
 buildscript {
     ext {
 
-        kotlin_version = '1.0.6'
-        tornadofx_version = '1.6.0'
+        kotlin_version = '1.1.2'
+        tornadofx_version = '1.7.4'
     }
 
     repositories {
@@ -22,6 +22,10 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
+compileKotlin {
+    kotlinOptions.jvmTarget= "1.8"
+}
+
 repositories {
     jcenter()
 }
@@ -37,7 +41,7 @@ jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.wt.JavaTools.app.MyApp'
+                'Main-Class': 'com.wt.JavaTools.app.MainApp'
         )
     }
     from configurations.compile.collect { entry -> zipTree(entry) }
