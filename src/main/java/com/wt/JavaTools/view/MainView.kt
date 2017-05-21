@@ -7,16 +7,16 @@ import tornadofx.*
  */
 class MainView : View("EntityGenerator") {
 
-    val m2jView: M2JView by inject()
+    val generatorView: GeneratorView by inject()
 
     override val root = borderpane {
-        minHeight = 450.0
-        minWidth = 300.0
+//        prefHeight = 400.0
+//        prefWidth = 300.0
     }
 
     init {
         with(root) {
-            center = m2jView.root
+            center = generatorView.root
         }
     }
 
