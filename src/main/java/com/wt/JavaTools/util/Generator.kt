@@ -29,28 +29,40 @@ object Generator {
             cfg.defaultEncoding = "UTF-8"
             cfg.setDirectoryForTemplateLoading(File(this.javaClass.classLoader.getResource("ftl").path))
             cfg.templateExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER
-
-            val temp = cfg.getTemplate("entity.ftl")
-
-            val dir = File("generator")
-            if (!dir.exists()) {
-                dir.mkdir()
+            val paths = getFilePath(property.entityName)
+            for ((key, value) in paths) {
+                val temp = cfg.getTemplate("$key.ftl")
+                val dir = File("generator/$value")
+                if (!dir.exists()) {
+                    dir.mkdirs()
+                }
+                val osp: FileOutputStream
+                if (key == "Domain") {
+                    osp = FileOutputStream(File(dir, "${property.entityName}.java"))
+                } else {
+                    osp = FileOutputStream(File(dir, "${property.entityName}$key.java"))
+                }
+                val out = OutputStreamWriter(osp)
+                temp.process(property, out)
+                osp.flush()
+                osp.close()
             }
-            val osp = FileOutputStream(File(dir, property.entityName + ".java"))
-            val out = OutputStreamWriter(osp)
-            temp.process(property, out)
-            osp.flush()
-            osp.close()
             return "操作成功"
         } catch(e: Exception) {
             return e.message.orEmpty()
         }
     }
 
+    private fun getFilePath(name: String): Map<String, String> {
+        return hashMapOf("Domain" to "$name/domain", "Service" to "$name/service", "ServiceImpl" to "$name/service/impl", "Dao" to "$name/dao", "DaoImpl" to "$name/dao/impl")
+    }
+
     fun getProperties(configs: Config): Property {
         val property = Property()
         property.entityName = configs.entityNameProperty.value
+        property.entityNameLowCase = (property.entityName[0] + 32) + property.entityName.substring(1)
         property.packageName = configs.packageNameProperty.value
+        property.tableName = configs.tableNameProperty.value
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance()
             val con: Connection = DriverManager.getConnection("jdbc:mysql://${configs.ipProperty.value}/${configs.dataBaseProperty.value}?useUnicode=true&characterEncoding=utf8&useSSL=false", configs.rootUserProperty.value, configs.passwordProperty.value)

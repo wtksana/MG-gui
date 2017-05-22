@@ -1,10 +1,15 @@
-package ${packageName};
+package ${packageName}.${entityName}.domain;
 
 @Entity
+@Table(name = "${tableName}")
 public class ${entityName} {
 <#if attrs?exists>
     <#list attrs as item>
     /* ${item.comment} */
+    <#if item.name=="id">
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    </#if>
     private ${item.type} ${item.name};
     </#list>
 </#if>
