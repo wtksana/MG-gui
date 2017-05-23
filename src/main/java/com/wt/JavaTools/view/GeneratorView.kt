@@ -99,6 +99,7 @@ class GeneratorView : View() {
                 }
             }
             textarea {
+                isWrapText = true
                 prefWidth = 300.0
                 prefHeight = 50.0
                 bind(output)

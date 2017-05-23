@@ -12,12 +12,12 @@ object PropertiesUtil {
 
     fun getProperties(): List<String> {
         try {
-            val dir = File("generator")
+            val dir = File("generator/config")
             if (!dir.exists()) {
-                dir.mkdir()
+                dir.mkdirs()
                 return arrayListOf()
             }
-            return dir.list().toList()
+            return dir.list().filter { it.endsWith(".properties") }.map { it.replace(".properties", "") }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -28,11 +28,11 @@ object PropertiesUtil {
     fun loadProperty(name: String): Properties {
         val properties = Properties()
         try {
-            val dir = File("generator")
+            val dir = File("generator/config")
             if (!dir.exists()) {
-                dir.mkdir()
+                dir.mkdirs()
             }
-            val file = File(dir, name)
+            val file = File(dir, "$name.properties")
             if (!file.exists()) {
                 file.createNewFile()
             }
@@ -53,9 +53,9 @@ object PropertiesUtil {
             properties.setProperty("tableName", configModel.tableName.value.orEmpty())
             properties.setProperty("entityName", configModel.entityName.value.orEmpty())
             properties.setProperty("packageName", configModel.packageName.value.orEmpty())
-            val dir = File("generator")
+            val dir = File("generator/config")
             if (!dir.exists()) {
-                dir.mkdir()
+                dir.mkdirs()
             }
             val file = File(dir, "$name.properties")
             if (!file.exists()) {
