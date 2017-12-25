@@ -1,6 +1,6 @@
-package com.wt.JavaTools.view
+package com.wt.javatools.view
 
-import com.wt.JavaTools.util.PropertiesUtil
+import com.wt.javatools.util.PropertiesUtil
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
@@ -9,8 +9,8 @@ import tornadofx.*
  */
 class SaveConfig : View() {
     override val root = Form()
-    val configName = SimpleStringProperty()
-    val generatorView: GeneratorView by inject()
+    private val configName = SimpleStringProperty()
+    private val generatorView: GeneratorView by inject()
 
     init {
         title = "保存配置"
@@ -40,7 +40,7 @@ class LoadConfig : Fragment() {
     override val root = listview<String> {
         prefHeight = 300.0
     }
-    val generatorView: GeneratorView by inject()
+    private val generatorView: GeneratorView by inject()
 
     init {
         title = "读取配置"

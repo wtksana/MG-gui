@@ -1,4 +1,4 @@
-package com.wt.JavaTools.model
+package com.wt.javatools.model
 
 /**
  * Created by wt on 2017/5/20.

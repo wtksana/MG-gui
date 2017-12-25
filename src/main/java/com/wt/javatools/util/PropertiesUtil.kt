@@ -1,6 +1,6 @@
-package com.wt.JavaTools.util
+package com.wt.javatools.util
 
-import com.wt.JavaTools.model.ConfigModel
+import com.wt.javatools.model.ConfigModel
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*

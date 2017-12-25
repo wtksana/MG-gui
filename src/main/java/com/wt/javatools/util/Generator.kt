@@ -1,8 +1,8 @@
-package com.wt.JavaTools.util
+package com.wt.javatools.util
 
-import com.wt.JavaTools.model.Attribute
-import com.wt.JavaTools.model.Config
-import com.wt.JavaTools.model.Property
+import com.wt.javatools.model.Attribute
+import com.wt.javatools.model.Config
+import com.wt.javatools.model.Property
 import freemarker.template.Configuration
 import freemarker.template.TemplateExceptionHandler
 import java.io.File
@@ -37,10 +37,10 @@ object Generator {
                     dir.mkdirs()
                 }
                 val osp: FileOutputStream
-                if (key == "Domain") {
-                    osp = FileOutputStream(File(dir, "${property.entityName}.java"))
+                osp = if (key == "Domain") {
+                    FileOutputStream(File(dir, "${property.entityName}.java"))
                 } else {
-                    osp = FileOutputStream(File(dir, "${property.entityName}$key.java"))
+                    FileOutputStream(File(dir, "${property.entityName}$key.java"))
                 }
                 val out = OutputStreamWriter(osp)
                 temp.process(property, out)
@@ -57,7 +57,7 @@ object Generator {
         return hashMapOf("Domain" to "$name/domain", "Service" to "$name/service", "ServiceImpl" to "$name/service/impl", "Dao" to "$name/dao", "DaoImpl" to "$name/dao/impl")
     }
 
-    fun getProperties(configs: Config): Property {
+    private fun getProperties(configs: Config): Property {
         val property = Property()
         property.entityName = configs.entityNameProperty.value
         property.entityNameLowCase = (property.entityName[0] + 32) + property.entityName.substring(1)
@@ -76,17 +76,16 @@ object Generator {
                 val comments = rs.getString("COLUMN_COMMENT")
                 val fieldNameUpCase = getFieldNameUpCase(columnName)
                 val fieldName = (fieldNameUpCase[0] + 32) + fieldNameUpCase.substring(1)
-                val type: String
-                if (dataType == "decimal") {
-                    type = "double"
+                val type = if (dataType == "decimal") {
+                    "double"
                 } else if (dataType == "int" || dataType == "tinyint") {
-                    type = "int"
+                    "int"
                 } else if (dataType == "date" || dataType == "datetime") {
-                    type = "Date"
+                    "Date"
                 } else if (dataType == "bigint" || dataType == "timestamp") {
-                    type = "long"
+                    "long"
                 } else {
-                    type = "String"
+                    "String"
                 }
                 property.attrs.add(Attribute(fieldName, type, comments, fieldNameUpCase))
             }
@@ -98,8 +97,7 @@ object Generator {
 
     private fun getFieldNameUpCase(columnName: String): String {
         //将字段首字母大写
-        val fieldName = columnName.toLowerCase().split("_").dropLastWhile(String::isEmpty).map { (it[0] - 32) + it.substring(1) }.joinToString("")
-        return fieldName
+        return columnName.toLowerCase().split("_").dropLastWhile(String::isEmpty).map { (it[0] - 32) + it.substring(1) }.joinToString("")
     }
 
 

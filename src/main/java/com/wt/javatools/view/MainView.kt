@@ -1,4 +1,4 @@
-package com.wt.JavaTools.view
+package com.wt.javatools.view
 
 import javafx.scene.control.TabPane
 import tornadofx.*
@@ -8,8 +8,8 @@ import tornadofx.*
  */
 class MainView : View("JavaTool by wt") {
 
-    val generatorView: GeneratorView by inject()
-    val regExView: RegExView by inject()
+    private val generatorView: GeneratorView by inject()
+    private val regExView: RegExView by inject()
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
         tab("Generator") {

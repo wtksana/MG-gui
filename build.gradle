@@ -4,8 +4,8 @@ version '0.1'
 buildscript {
     ext {
 
-        kotlin_version = '1.1.2'
-        tornadofx_version = '1.7.4'
+        kotlin_version = '1.2.10'
+        tornadofx_version = '1.7.14'
     }
 
     repositories {
@@ -34,15 +34,15 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "no.tornado:tornadofx:$tornadofx_version"
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
-    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.23'
+    compile "mysql:mysql-connector-java:5.1.40"
+    compile "org.freemarker:freemarker:2.3.23"
 }
 
 jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.wt.JavaTools.app.MainApp'
+                'Main-Class': 'com.wt.javatools.app.MainApp'
         )
     }
     from configurations.compile.collect { entry -> zipTree(entry) }

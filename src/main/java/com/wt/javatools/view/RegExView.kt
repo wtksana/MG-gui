@@ -1,4 +1,4 @@
-package com.wt.JavaTools.view
+package com.wt.javatools.view
 
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation.VERTICAL
@@ -11,7 +11,7 @@ import tornadofx.*
  */
 class RegExView : View() {
     override val root = Form()
-    val regex = SimpleStringProperty()
+    private val regex = SimpleStringProperty()
 
     init {
         fieldset {

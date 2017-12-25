@@ -1,8 +1,8 @@
-package com.wt.JavaTools.view
+package com.wt.javatools.view
 
-import com.wt.JavaTools.model.Config
-import com.wt.JavaTools.model.ConfigModel
-import com.wt.JavaTools.util.Generator
+import com.wt.javatools.model.Config
+import com.wt.javatools.model.ConfigModel
+import com.wt.javatools.util.Generator
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.Modality
 import javafx.stage.StageStyle
@@ -16,8 +16,8 @@ class GeneratorView : View() {
         prefHeight = 400.0
         prefWidth = 300.0
     }
-    val configForm = Form()
-    val saveConfigView: SaveConfig by inject()
+    private val configForm = Form()
+    private val saveConfigView: SaveConfig by inject()
     val configs = ConfigModel(Config())
     val output = SimpleStringProperty()
 
