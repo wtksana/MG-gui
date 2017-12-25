@@ -12,7 +12,7 @@ public class ${entityName} implements Serializable{
 
     </#list>
 
-/*------------------------------------------*/
+    /*--------------------getter/setter--------------------*/
 
     <#list attrs as item>
     public ${item.javaType} get${item.propertyUpCase}() {
@@ -24,4 +24,6 @@ public class ${entityName} implements Serializable{
     }
 
     </#list>
+    /*--------------------getter/setter--------------------*/
+
 }

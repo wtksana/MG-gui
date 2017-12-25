@@ -10,7 +10,7 @@
 
     <sql id="Base_Column_List">
         <#list attrs as item>
-            ${item.column}<#if item_has_next>,</#if>
+        ${item.column}<#if item_has_next>,</#if>
         </#list>
     </sql>
 
@@ -23,7 +23,7 @@
         )
         values (
         <#list attrs as item>
-            ${r'#{'}${item.column}${r'}'}<#if item_has_next>,</#if>
+        ${r'#{'}${item.column}${r'}'}<#if item_has_next>,</#if>
         </#list>
         )
     </insert>
@@ -36,7 +36,7 @@
     <update id="updateByPrimaryKey" parameterType="${entityPackage}.${entityName}Entity">
         update ${tableName} set
         <#list attrs as item>
-            ${item.column} = ${r'#{'}username${r'}'}<#if item_has_next>,</#if>
+            ${item.column} = ${r'#{'}${item.property}${r'}'}<#if item_has_next>,</#if>
         </#list>
         where id = ${r'#{'}id${r'}'}
     </update>
@@ -46,12 +46,6 @@
         <include refid="Base_Column_List"/>
         from ${tableName}
         where id = ${r'#{'}id${r'}'}
-    </select>
-
-    <select id="selectAll" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from ${tableName}
     </select>
 
 </mapper>
