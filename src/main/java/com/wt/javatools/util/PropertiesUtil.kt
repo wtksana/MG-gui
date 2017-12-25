@@ -52,7 +52,8 @@ object PropertiesUtil {
             properties.setProperty("password", configModel.password.value.orEmpty())
             properties.setProperty("tableName", configModel.tableName.value.orEmpty())
             properties.setProperty("entityName", configModel.entityName.value.orEmpty())
-            properties.setProperty("packageName", configModel.packageName.value.orEmpty())
+            properties.setProperty("entityPackage", configModel.entityPackage.value.orEmpty())
+            properties.setProperty("mapperPackage", configModel.mapperPackage.value.orEmpty())
             val dir = File("generator/config")
             if (!dir.exists()) {
                 dir.mkdirs()

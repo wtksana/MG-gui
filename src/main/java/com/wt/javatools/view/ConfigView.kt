@@ -64,7 +64,8 @@ class LoadConfig : Fragment() {
                         generatorView.configs.password.value = rst.getProperty("password").orEmpty()
                         generatorView.configs.tableName.value = rst.getProperty("tableName").orEmpty()
                         generatorView.configs.entityName.value = rst.getProperty("entityName").orEmpty()
-                        generatorView.configs.packageName.value = rst.getProperty("packageName").orEmpty()
+                        generatorView.configs.entityPackage.value = rst.getProperty("entityPackage").orEmpty()
+                        generatorView.configs.mapperPackage.value = rst.getProperty("mapperPackage").orEmpty()
                         close()
                     }
                 }

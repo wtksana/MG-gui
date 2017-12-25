@@ -8,8 +8,8 @@ data class Property(
         var mapperPackage: String = "",
         var entityName: String = "",
         var entityNameLowCase: String = "",
-        var packageName: String = "",
         var tableName: String = "",
-        var attrs: MutableList<Attribute> = arrayListOf(),
+        var attrs: MutableList<Attributes> = mutableListOf(),
+        var imports: MutableSet<String> = mutableSetOf(),
         var msg: String = ""
 )

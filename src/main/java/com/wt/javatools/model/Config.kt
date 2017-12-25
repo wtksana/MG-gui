@@ -12,8 +12,9 @@ class Config {
     val rootUserProperty = SimpleStringProperty()
     val passwordProperty = SimpleStringProperty()
     val tableNameProperty = SimpleStringProperty()
-    val packageNameProperty = SimpleStringProperty()
     val entityNameProperty = SimpleStringProperty()
+    val entityPackageProperty = SimpleStringProperty()
+    val mapperPackageProperty = SimpleStringProperty()
 }
 
 class ConfigModel(val configs: Config) : ViewModel() {
@@ -22,6 +23,7 @@ class ConfigModel(val configs: Config) : ViewModel() {
     val rootUser = bind { configs.rootUserProperty }
     val password = bind { configs.passwordProperty }
     val tableName = bind { configs.tableNameProperty }
-    val packageName = bind { configs.packageNameProperty }
     val entityName = bind { configs.entityNameProperty }
+    val entityPackage = bind { configs.entityPackageProperty }
+    val mapperPackage = bind { configs.mapperPackageProperty }
 }

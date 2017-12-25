@@ -1,6 +1,6 @@
 package com.wt.javatools.util
 
-import com.wt.javatools.model.Attribute
+import com.wt.javatools.model.Attributes
 import com.wt.javatools.model.Config
 import com.wt.javatools.model.Property
 import freemarker.template.Configuration
@@ -32,36 +32,33 @@ object Generator {
             val paths = getFilePath(property.entityName)
             for ((key, value) in paths) {
                 val temp = cfg.getTemplate("$key.ftl")
-                val dir = File("generator/$value")
+                val dir = File("generator/$key")
                 if (!dir.exists()) {
                     dir.mkdirs()
                 }
                 val osp: FileOutputStream
-                osp = if (key == "Domain") {
-                    FileOutputStream(File(dir, "${property.entityName}.java"))
-                } else {
-                    FileOutputStream(File(dir, "${property.entityName}$key.java"))
-                }
+                osp = FileOutputStream(File(dir, value))
                 val out = OutputStreamWriter(osp)
                 temp.process(property, out)
                 osp.flush()
                 osp.close()
             }
             return "操作成功"
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             return e.message.orEmpty()
         }
     }
 
-    private fun getFilePath(name: String): Map<String, String> {
-        return hashMapOf("Domain" to "$name/domain", "Service" to "$name/service", "ServiceImpl" to "$name/service/impl", "Dao" to "$name/dao", "DaoImpl" to "$name/dao/impl")
+    private fun getFilePath(entityName: String): Map<String, String> {
+        return hashMapOf("entity" to "${entityName}Entity.java", "javaMapper" to "${entityName}Mapper.java", "xmlMapper" to "${entityName}Mapper.xml")
     }
 
     private fun getProperties(configs: Config): Property {
         val property = Property()
         property.entityName = configs.entityNameProperty.value
         property.entityNameLowCase = (property.entityName[0] + 32) + property.entityName.substring(1)
-        property.packageName = configs.packageNameProperty.value
+        property.entityPackage = configs.entityPackageProperty.value
+        property.mapperPackage = configs.mapperPackageProperty.value
         property.tableName = configs.tableNameProperty.value
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance()
@@ -77,17 +74,21 @@ object Generator {
                 val fieldNameUpCase = getFieldNameUpCase(columnName)
                 val fieldName = (fieldNameUpCase[0] + 32) + fieldNameUpCase.substring(1)
                 val type = if (dataType == "decimal") {
-                    "double"
+                    property.imports.add("import java.math.BigDecimal;")
+                    "BigDecimal"
                 } else if (dataType == "int" || dataType == "tinyint") {
-                    "int"
-                } else if (dataType == "date" || dataType == "datetime") {
+                    "Integer"
+                } else if (dataType == "date" || dataType == "datetime" || dataType == "timestamp") {
+                    property.imports.add("import java.util.Date;")
                     "Date"
-                } else if (dataType == "bigint" || dataType == "timestamp") {
-                    "long"
+                } else if (dataType == "bigint") {
+                    "Long"
+                } else if (dataType == "bit") {
+                    "Boolean"
                 } else {
                     "String"
                 }
-                property.attrs.add(Attribute(fieldName, type, comments, fieldNameUpCase))
+                property.attrs.add(Attributes(columnName, fieldName, dataType, type, comments, fieldNameUpCase))
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -95,7 +96,7 @@ object Generator {
         return property
     }
 
-    private fun getFieldNameUpCase(columnName: String): String {
+    public fun getFieldNameUpCase(columnName: String): String {
         //将字段首字母大写
         return columnName.toLowerCase().split("_").dropLastWhile(String::isEmpty).map { (it[0] - 32) + it.substring(1) }.joinToString("")
     }

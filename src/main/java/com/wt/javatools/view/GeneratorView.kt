@@ -73,10 +73,17 @@ class GeneratorView : View() {
                         required()
                     }
                 }
-                field("packageName") {
-                    textfield(configs.packageName) {
+                field("entityPackage") {
+                    textfield(configs.entityPackage) {
                         text = ""
-                        promptText = "请输入包路径(如com.mysql.jdbc)"
+                        promptText = "实体类包路径(如com.mysql.jdbc)"
+                        required()
+                    }
+                }
+                field("mapperPackage") {
+                    textfield(configs.mapperPackage) {
+                        text = ""
+                        promptText = "dao接口包路径(如com.mysql.jdbc)"
                         required()
                     }
                 }
@@ -104,6 +111,7 @@ class GeneratorView : View() {
                 prefHeight = 50.0
                 bind(output)
                 isEditable = false
+                promptText = "结果输出..."
             }
         }
     }
