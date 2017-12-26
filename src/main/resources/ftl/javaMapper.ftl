@@ -1,15 +1,20 @@
 package ${mapperPackage};
 
 import ${entityPackage}.${entityName};
+import java.util.List;
 
 public interface ${entityName}Mapper {
 
     int insert(${entityName} ${entityNameLowCase});
 
-    int deleteByPrimaryKey(Long id);
+    ${entityName} select(Long id);
 
-    int updateByPrimaryKey(Long id);
+    int update(${entityName} ${entityNameLowCase});
 
-    ${entityName} selectByPrimaryKey(Long id);
+    int delete(Long id);
+
+    int updateSelective(${entityName} ${entityNameLowCase});
+
+    void batchUpdate(List<${entityName}> ${entityNameLowCase}List);
 
 }

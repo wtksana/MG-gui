@@ -43,14 +43,14 @@ object Generator {
                 osp.flush()
                 osp.close()
             }
-            return "操作成功"
+            return "自动生成代码成功！"
         } catch (e: Exception) {
             return e.message.orEmpty()
         }
     }
 
     private fun getFilePath(entityName: String): Map<String, String> {
-        return hashMapOf("entity" to "${entityName}Entity.java", "javaMapper" to "${entityName}Mapper.java", "xmlMapper" to "${entityName}Mapper.xml")
+        return hashMapOf("entity" to "$entityName.java", "javaMapper" to "${entityName}Mapper.java", "xmlMapper" to "${entityName}Mapper.xml")
     }
 
     private fun getProperties(configs: Config): Property {
@@ -96,8 +96,8 @@ object Generator {
         return property
     }
 
-    public fun getFieldNameUpCase(columnName: String): String {
-        //将字段首字母大写
+    private fun getFieldNameUpCase(columnName: String): String {
+        //数据库字段驼峰式命名
         return columnName.toLowerCase().split("_").dropLastWhile(String::isEmpty).map { (it[0] - 32) + it.substring(1) }.joinToString("")
     }
 
