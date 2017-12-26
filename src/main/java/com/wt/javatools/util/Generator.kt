@@ -27,7 +27,8 @@ object Generator {
         try {
             val cfg = Configuration(Configuration.VERSION_2_3_23)
             cfg.defaultEncoding = "UTF-8"
-            cfg.setDirectoryForTemplateLoading(File(this.javaClass.classLoader.getResource("ftl").path))
+//            cfg.setDirectoryForTemplateLoading(File(this.javaClass.classLoader.getResource("ftl").path))
+            cfg.setClassLoaderForTemplateLoading(this.javaClass.classLoader,"ftl")
             cfg.templateExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER
             val paths = getFilePath(property.entityName)
             for ((key, value) in paths) {

@@ -9,15 +9,15 @@ import tornadofx.*
 class MainView : View("JavaTool by wt") {
 
     private val generatorView: GeneratorView by inject()
-    private val regExView: RegExView by inject()
+//    private val regExView: RegExView by inject()
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
         tab("Generator") {
             this += generatorView.root
         }
-        tab("RegEx") {
-            this += regExView.root
-        }
+//        tab("RegEx") {
+//            this += regExView.root
+//        }
     }
 
 }
