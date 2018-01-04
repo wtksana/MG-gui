@@ -44,7 +44,7 @@ object Generator {
                 osp.flush()
                 osp.close()
             }
-            return "自动生成代码成功！"
+            return "${property.entityName} generate success！"
         } catch (e: Exception) {
             return e.message.orEmpty()
         }
