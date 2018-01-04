@@ -117,7 +117,7 @@ class GeneratorView : View() {
                 prefHeight = 50.0
                 bind(output)
                 isEditable = false
-                promptText = "结果输出..."
+                promptText = "错误信息..."
             }
         }
     }
