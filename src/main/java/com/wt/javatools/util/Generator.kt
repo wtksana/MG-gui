@@ -30,7 +30,7 @@ object Generator {
 //            cfg.setDirectoryForTemplateLoading(File(this.javaClass.classLoader.getResource("ftl").path))
             cfg.setClassLoaderForTemplateLoading(this.javaClass.classLoader,"ftl")
             cfg.templateExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER
-            val paths = getFilePath(property.entityName)
+            val paths = getFilePath(property)
             for ((key, value) in paths) {
                 val temp = cfg.getTemplate("$key.ftl")
                 val dir = File("generator/$key")
@@ -50,8 +50,16 @@ object Generator {
         }
     }
 
-    private fun getFilePath(entityName: String): Map<String, String> {
-        return hashMapOf("entity" to "$entityName.java", "javaMapper" to "${entityName}Mapper.java", "xmlMapper" to "${entityName}Mapper.xml")
+    private fun getFilePath(property: Property): Map<String, String> {
+        val paths = mutableMapOf<String,String>()
+        paths.put("entity","${property.entityName}.java")
+        paths.put("javaMapper","${property.entityName}Mapper.java")
+        paths.put("xmlMapper","${property.entityName}Mapper.xml")
+        if(property.servicePackage.isNotBlank()){
+            paths.put("service","${property.entityName}Service.java")
+            paths.put("serviceImpl","${property.entityName}ServiceImpl.java")
+        }
+        return paths
     }
 
     private fun getProperties(configs: Config): Property {
@@ -60,6 +68,7 @@ object Generator {
         property.entityNameLowCase = (property.entityName[0] + 32) + property.entityName.substring(1)
         property.entityPackage = configs.entityPackageProperty.value
         property.mapperPackage = configs.mapperPackageProperty.value
+        property.servicePackage = configs.servicePackageProperty.value
         property.tableName = configs.tableNameProperty.value
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance()

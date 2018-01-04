@@ -40,7 +40,7 @@ class GeneratorView : View() {
                 }
                 field("dataBase") {
                     textfield(configs.dataBase) {
-                        text = ""
+                        text = "schemaName"
                         promptText = "请输入要连接的数据库名"
                         required()
                     }
@@ -61,7 +61,7 @@ class GeneratorView : View() {
                 }
                 field("tableName") {
                     textfield(configs.tableName) {
-                        text = ""
+                        text = "tableName"
                         promptText = "请输入表名"
                         required()
                     }
@@ -76,19 +76,25 @@ class GeneratorView : View() {
                 field("entityPackage") {
                     textfield(configs.entityPackage) {
                         text = ""
-                        promptText = "实体类包路径(如com.mysql.jdbc)"
+                        promptText = "实体类包路径(如com.MGgui.model)"
                         required()
                     }
                 }
                 field("mapperPackage") {
                     textfield(configs.mapperPackage) {
                         text = ""
-                        promptText = "dao接口包路径(如com.mysql.jdbc)"
+                        promptText = "dao接口包路径(如com.MGgui.dao)"
                         required()
                     }
                 }
+                field("servicePackage") {
+                    textfield(configs.servicePackage) {
+                        text = ""
+                        promptText = "service接口包路径(如com.MGgui.service)"
+                    }
+                }
                 field("操作") {
-                    button("OK") {
+                    button("RUN") {
                         setOnAction {
                             generate()
                         }

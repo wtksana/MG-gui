@@ -15,6 +15,7 @@ class Config {
     val entityNameProperty = SimpleStringProperty()
     val entityPackageProperty = SimpleStringProperty()
     val mapperPackageProperty = SimpleStringProperty()
+    val servicePackageProperty = SimpleStringProperty()
 }
 
 class ConfigModel(val configs: Config) : ViewModel() {
@@ -26,4 +27,5 @@ class ConfigModel(val configs: Config) : ViewModel() {
     val entityName = bind { configs.entityNameProperty }
     val entityPackage = bind { configs.entityPackageProperty }
     val mapperPackage = bind { configs.mapperPackageProperty }
+    val servicePackage = bind { configs.servicePackageProperty }
 }

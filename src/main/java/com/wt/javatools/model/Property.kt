@@ -6,6 +6,7 @@ package com.wt.javatools.model
 data class Property(
         var entityPackage: String = "",
         var mapperPackage: String = "",
+        var servicePackage: String = "",
         var entityName: String = "",
         var entityNameLowCase: String = "",
         var tableName: String = "",
