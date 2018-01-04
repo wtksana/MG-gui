@@ -1,8 +1,8 @@
-package com.wt.javatools.util
+package com.wt.mggui.util
 
-import com.wt.javatools.model.Attributes
-import com.wt.javatools.model.Config
-import com.wt.javatools.model.Property
+import com.wt.mggui.model.Attributes
+import com.wt.mggui.model.Config
+import com.wt.mggui.model.Property
 import freemarker.template.Configuration
 import freemarker.template.TemplateExceptionHandler
 import java.io.File

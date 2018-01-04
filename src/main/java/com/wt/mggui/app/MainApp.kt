@@ -1,6 +1,6 @@
-package com.wt.javatools.app
+package com.wt.mggui.app
 
-import com.wt.javatools.view.MainView
+import com.wt.mggui.view.MainView
 import tornadofx.App
 
 /**

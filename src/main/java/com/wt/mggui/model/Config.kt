@@ -1,4 +1,4 @@
-package com.wt.javatools.model
+package com.wt.mggui.model
 
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*

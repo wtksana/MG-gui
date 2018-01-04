@@ -1,4 +1,4 @@
-package com.wt.javatools.model
+package com.wt.mggui.model
 
 /**
  * Created by wt on 2017/5/20.

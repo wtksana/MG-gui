@@ -1,6 +1,6 @@
-package com.wt.javatools.view
+package com.wt.mggui.view
 
-import com.wt.javatools.util.PropertiesUtil
+import com.wt.mggui.util.PropertiesUtil
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
@@ -66,6 +66,7 @@ class LoadConfig : Fragment() {
                         generatorView.configs.entityName.value = rst.getProperty("entityName").orEmpty()
                         generatorView.configs.entityPackage.value = rst.getProperty("entityPackage").orEmpty()
                         generatorView.configs.mapperPackage.value = rst.getProperty("mapperPackage").orEmpty()
+                        generatorView.configs.servicePackage.value = rst.getProperty("servicePackage").orEmpty()
                         close()
                     }
                 }

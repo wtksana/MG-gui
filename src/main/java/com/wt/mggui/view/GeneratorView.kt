@@ -1,8 +1,8 @@
-package com.wt.javatools.view
+package com.wt.mggui.view
 
-import com.wt.javatools.model.Config
-import com.wt.javatools.model.ConfigModel
-import com.wt.javatools.util.Generator
+import com.wt.mggui.model.Config
+import com.wt.mggui.model.ConfigModel
+import com.wt.mggui.util.Generator
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.Modality
 import javafx.stage.StageStyle
@@ -31,10 +31,24 @@ class GeneratorView : View() {
     private fun initConfigForm() {
         with(configForm) {
             fieldset {
-                field("ip") {
+                field("host") {
                     textfield(configs.ip) {
-                        text = "127.0.0.1"
-                        promptText = "请输入要连接的数据库IP"
+                        text = "127.0.0.1:3306"
+                        promptText = "请输入要连接的数据库host"
+                        required()
+                    }
+                }
+                field("user") {
+                    textfield(configs.rootUser) {
+                        text = "root"
+                        promptText = "请输入要连接的数据库的用户名"
+                        required()
+                    }
+                }
+                field("password") {
+                    textfield(configs.password) {
+                        text = "root"
+                        promptText = "请输入要连接的数据库的用户密码"
                         required()
                     }
                 }
@@ -42,20 +56,6 @@ class GeneratorView : View() {
                     textfield(configs.dataBase) {
                         text = "schemaName"
                         promptText = "请输入要连接的数据库名"
-                        required()
-                    }
-                }
-                field("rootUser") {
-                    textfield(configs.rootUser) {
-                        text = "root"
-                        promptText = "请输入要连接的数据库root用户名"
-                        required()
-                    }
-                }
-                field("password") {
-                    textfield(configs.password) {
-                        text = "root"
-                        promptText = "请输入要连接的数据库root用户密码"
                         required()
                     }
                 }
@@ -76,21 +76,21 @@ class GeneratorView : View() {
                 field("entityPackage") {
                     textfield(configs.entityPackage) {
                         text = ""
-                        promptText = "实体类包路径(如com.MGgui.model)"
+                        promptText = "实体类包路径(如com.mggui.model)"
                         required()
                     }
                 }
                 field("mapperPackage") {
                     textfield(configs.mapperPackage) {
                         text = ""
-                        promptText = "dao接口包路径(如com.MGgui.dao)"
+                        promptText = "dao接口包路径(如com.mggui.dao)"
                         required()
                     }
                 }
                 field("servicePackage") {
                     textfield(configs.servicePackage) {
                         text = ""
-                        promptText = "service接口包路径(如com.MGgui.service)"
+                        promptText = "service接口包路径(如com.mggui.service)"
                     }
                 }
                 field("操作") {

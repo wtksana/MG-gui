@@ -1,4 +1,4 @@
-package com.wt.javatools.view
+package com.wt.mggui.view
 
 import tornadofx.*
 

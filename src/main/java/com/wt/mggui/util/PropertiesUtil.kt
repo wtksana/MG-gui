@@ -1,6 +1,6 @@
-package com.wt.javatools.util
+package com.wt.mggui.util
 
-import com.wt.javatools.model.ConfigModel
+import com.wt.mggui.model.ConfigModel
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -54,6 +54,7 @@ object PropertiesUtil {
             properties.setProperty("entityName", configModel.entityName.value.orEmpty())
             properties.setProperty("entityPackage", configModel.entityPackage.value.orEmpty())
             properties.setProperty("mapperPackage", configModel.mapperPackage.value.orEmpty())
+            properties.setProperty("servicePackage", configModel.servicePackage.value.orEmpty())
             val dir = File("generator/config")
             if (!dir.exists()) {
                 dir.mkdirs()
