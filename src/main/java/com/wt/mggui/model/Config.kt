@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
 /**
+ * 配置
  * Created by wt on 2017/5/20.
  */
 class Config {

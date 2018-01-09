@@ -6,6 +6,7 @@ import java.io.FileOutputStream
 import java.util.*
 
 /**
+ * Properties文件工具类
  * Created by wt on 2017/5/21.
  */
 object PropertiesUtil {

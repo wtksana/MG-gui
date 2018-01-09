@@ -9,6 +9,7 @@ import javafx.stage.StageStyle
 import tornadofx.*
 
 /**
+ * 构造器配置界面
  * Created by wt on 2017/5/20.
  */
 class GeneratorView : View() {

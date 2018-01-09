@@ -5,8 +5,10 @@ import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
 /**
+ * 配置保存读取界面
  * Created by wt on 2017/5/21.
  */
+
 class SaveConfig : View() {
     override val root = Form()
     private val configName = SimpleStringProperty()

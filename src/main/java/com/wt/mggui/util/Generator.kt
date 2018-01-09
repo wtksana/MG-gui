@@ -14,6 +14,7 @@ import java.sql.ResultSet
 import java.sql.Statement
 
 /**
+ * 构造器
  * Created by wt on 2017/5/20.
  */
 object Generator {
@@ -50,6 +51,9 @@ object Generator {
         }
     }
 
+    /**
+     * 获取文件路径
+     */
     private fun getFilePath(property: Property): Map<String, String> {
         val paths = mutableMapOf<String,String>()
         paths.put("entity","${property.entityName}.java")
@@ -62,6 +66,9 @@ object Generator {
         return paths
     }
 
+    /**
+     * 获取数据库表字段
+     */
     private fun getProperties(configs: Config): Property {
         val property = Property()
         property.entityName = configs.entityNameProperty.value
