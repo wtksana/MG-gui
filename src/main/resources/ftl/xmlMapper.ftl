@@ -15,7 +15,7 @@
     </sql>
 
     <insert id="insert" parameterType="${entityPackage}.${entityName}">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into ${tableName} (
@@ -23,31 +23,53 @@
         )
         values (
         <#list attrs as item>
-            ${r'#{'}${item.column}${r'}'}<#if item_has_next>,</#if>
+            ${r'#'}{${item.property}}<#if item_has_next>,</#if>
         </#list>
         )
+    </insert>
+
+    <insert id="insertSelective" parameterType="${entityPackage}.${entityName}">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#list attrs as item>
+            <if test="${item.property} != null">
+                ${item.column},
+            </if>
+            </#list>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#list attrs as item>
+                <if test="${item.property} != null">
+                    ${r'#'}{${item.property}},
+                </if>
+            </#list>
+        </trim>
     </insert>
 
     <select id="select" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from ${tableName}
-        where id = ${r'#{'}id${r'}'}
+        where id = ${r'#'}{id}
     </select>
 
     <update id="update" parameterType="${entityPackage}.${entityName}">
         update ${tableName}
         <set>
         <#list attrs as item>
-            ${item.column} = ${r'#{'}${item.property}${r'}'}<#if item_has_next>,</#if>
+            ${item.column} = ${r'#'}{${item.property}}<#if item_has_next>,</#if>
         </#list>
         </set>
-        where id = ${r'#{'}id${r'}'}
+        where id = ${r'#'}{id}
     </update>
 
     <delete id="delete">
         delete from ${tableName}
-        where id = ${r'#{'}id${r'}'}
+        where id = ${r'#'}{id}
     </delete>
 
     <update id="updateSelective" parameterType="${entityPackage}.${entityName}">
@@ -55,11 +77,11 @@
         <set>
         <#list attrs as item>
             <if test="${item.property} != null">
-                ${item.column} = ${r'#{'}${item.property}${r'}'}<#if item_has_next>,</#if>
+                ${item.column} = ${r'#'}{${item.property}}<#if item_has_next>,</#if>
             </if>
         </#list>
         </set>
-        where id = ${r'#{'}id${r'}'}
+        where id = ${r'#'}{id}
     </update>
 
     <update id="batchUpdate" parameterType="java.util.List">
@@ -67,10 +89,10 @@
             update ${tableName}
             <set>
             <#list attrs as item>
-                ${item.column} = ${r'#{item.'}${item.property}${r'}'}<#if item_has_next>,</#if>
+                ${item.column} = ${r'#'}{item.${item.property}}<#if item_has_next>,</#if>
             </#list>
             </set>
-            where id = ${r'#{item.'}id${r'}'}
+            where id = ${r'#'}{item.id}
         </foreach>
     </update>
 

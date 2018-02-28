@@ -86,21 +86,21 @@ object Generator {
             val rs: ResultSet = stmt.executeQuery(sql)
             while (rs.next()) {
                 val columnName = rs.getString("COLUMN_NAME")
-                val dataType = rs.getString("DATA_TYPE")
+                val dataType = rs.getString("DATA_TYPE").toUpperCase()
                 val comments = rs.getString("COLUMN_COMMENT")
                 val fieldNameUpCase = getFieldNameUpCase(columnName)
                 val fieldName = (fieldNameUpCase[0] + 32) + fieldNameUpCase.substring(1)
-                val type = if (dataType == "decimal") {
+                val type = if (dataType == "DECIMAL") {
                     property.imports.add("import java.math.BigDecimal;")
                     "BigDecimal"
-                } else if (dataType == "int" || dataType == "tinyint") {
+                } else if (dataType == "INT" || dataType == "TINYINT") {
                     "Integer"
-                } else if (dataType == "date" || dataType == "datetime" || dataType == "timestamp") {
+                } else if (dataType == "DATE" || dataType == "DATETIME" || dataType == "TIMESTAMP") {
                     property.imports.add("import java.util.Date;")
                     "Date"
-                } else if (dataType == "bigint") {
+                } else if (dataType == "BIGINT") {
                     "Long"
-                } else if (dataType == "bit") {
+                } else if (dataType == "BIT") {
                     "Boolean"
                 } else {
                     "String"

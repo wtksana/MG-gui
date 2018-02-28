@@ -7,6 +7,8 @@ public interface ${entityName}Mapper {
 
     int insert(${entityName} ${entityNameLowCase});
 
+    int insertSelective(${entityName} ${entityNameLowCase});
+
     ${entityName} select(Long id);
 
     int update(${entityName} ${entityNameLowCase});
